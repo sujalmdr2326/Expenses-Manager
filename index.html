@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Ribbon -->
+    <div id="topRibbon">
+        <span id="welcomeMsg">Welcome</span>
+        <button id="changeNameBtn">Change Name</button>
+    </div>
+
+  <!-- Navigation Ribbon -->
+  <div class="nav-ribbon">
+    <a href="#" id="homeLink">Home</a> |
+    <a href="#" id="expensesLink">Expenses Tracker</a> |
+    <a href="#" id="contactLink">Contact Us</a>
+  </div>
+
+<!-- Home Page (Coming Soon) -->
+  <div id="homePage" class="page">
+      <h2>Home Page</h2>
+      <p>Coming Soon!</p>
+  </div>
+
+  <!-- Expenses Tracker Page -->
+  <div id="expenseSection" class="page">
+      <h1>Expense Tracker</h1>
+
+    <!-- Form to Add Entry -->
+    <div class="form-container">
+        <input type="date" id="date">
+        <input type="text" id="desc" placeholder="Description">
+       <select id="category">
+    <option value="">Select Category</option>
+
+    <optgroup label="Income">
+        <option value="Salary">Salary</option>
+        <option value="Bonus">Bonus</option>
+        <option value="Saving from Field">Saving from Field</option>
+        <option value="Profit from IPO">Profit from IPO</option>
+        <option value="Profit from Secondary Market">Profit from Secondary Market</option>
+        <option value="Indrive">Indrive</option>
+        <option value="Other Income">Others</option>
+    </optgroup>
+
+    <optgroup label="Expenses">
+        <option value="Bike: Fuel">Bike: Fuel</option>
+        <option value="Bike: Servicing">Bike: Servicing</option>
+        <option value="Bike: Renewal">Bike: Renewal</option>
+        <option value="Bike: Insurance">Bike: Insurance</option>
+        <option value="Scooter: Servicing">Scooter: Servicing</option>
+        <option value="Scooter: Renewal">Scooter: Renewal</option>
+        <option value="Scooter: Insurance">Scooter: Insurance</option>
+        <option value="Clothing">Clothing</option>
+        <option value="Food">Food</option>
+        <option value="Travel">Travel</option>
+        <option value="Hospital">Hospital</option>
+        <option value="Internet">Internet</option>
+        <option value="Futsal">Futsal</option>
+        <option value="College Fee">College Fee</option>
+        <option value="Bank Charge">Bank Charge</option>
+        <option value="Charity">Charity</option>
+        <option value="Other Expense">Other</option>
+    </optgroup>
+</select>
+
+
+        <input type="number" id="amount" placeholder="Amount">
+        <select id="type">
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+        </select>
+        <button id="addBtn">Add</button>
+    </div>
+
+    <!-- Entries Heading -->
+    <h2>Entries</h2>
+
+    <!-- Side-by-Side Tables -->
+    <div class="tables-container">
+        <!-- Income Table -->
+        <div class="table-wrapper">
+            <h3>Income</h3>
+            <table id="incomeTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <!-- Expenses Table -->
+        <div class="table-wrapper">
+            <h3>Expenses</h3>
+            <table id="expenseTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Summary -->
+    <h2>Summary</h2>
+    <p>Total Income: <span id="totalIncome">0</span></p>
+    <p>Total Expenses: <span id="totalExpense">0</span></p>
+    <p>Balance: <span id="balance">0</span></p>
+
+    <!-- Pie Chart -->
+   <h2>Income vs Expenses by Category</h2>
+<div class="chart-container">
+    <canvas id="pieChart"></canvas>
+</div>
+    <!-- Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

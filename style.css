@@ -1,0 +1,207 @@
+/* ------------------ General Layout ------------------ */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    max-width: 100%; /* Use full screen width */
+    box-sizing: border-box;
+}
+
+/* ------------------ Top Ribbon ------------------ */
+#topRibbon {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #388E3C;
+}
+
+#changeNameBtn {
+    background-color: white;
+    color: #4CAF50;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#changeNameBtn:hover {
+    background-color: #f1f1f1;
+}
+
+/* ------------------ Navigation Ribbon ------------------ */
+.nav-ribbon {
+    background-color: #66BB6A;
+    color: white;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center; /* center the links */
+    gap: 15px; /* spacing between links */
+}
+
+.nav-ribbon a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-ribbon a:hover {
+    text-decoration: underline;
+}
+
+/* ------------------ Headings ------------------ */
+h1, h2, h3 {
+    text-align: center;
+}
+
+/* ------------------ Form Layout ------------------ */
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input, select, button {
+    padding: 8px;
+    font-size: 14px;
+}
+
+input, select {
+    flex: 1;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #388E3C;
+}
+
+/* ------------------ Tables ------------------ */
+.tables-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.table-wrapper {
+    flex: 1;
+    min-width: 300px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Action buttons */
+.action-cell button {
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+}
+
+.edit-btn {
+    background-color: #FFC107;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-btn:hover {
+    opacity: 0.85;
+}
+
+.remove-btn {
+    background-color: #F44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.remove-btn:hover {
+    opacity: 0.85;
+}
+
+/* ------------------ Chart ------------------ */
+.chart-container {
+    width: 100%;
+    max-width: 600px;
+    height: 400px;
+    margin: auto;
+}
+
+#pieChart {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* ------------------ Page Sections ------------------ */
+.page {
+    display: none;
+}
+
+/* ------------------ Responsive ------------------ */
+@media (max-width: 768px) {
+    .tables-container {
+        flex-direction: column;
+    }
+
+    .form-container {
+        flex-direction: column;
+    }
+
+    input, select, button {
+        flex: 100%;
+    }
+
+    th, td {
+        font-size: 12px;
+        padding: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    h1, h2, h3 {
+        font-size: 18px;
+    }
+
+    .nav-ribbon {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
