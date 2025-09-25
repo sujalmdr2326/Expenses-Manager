@@ -30,6 +30,18 @@ const expenseCats = ["Rent","Food","Medicine","Insurance","Transport","Clothing"
 // -------------------- Category Management --------------------
 const categorySelect = document.getElementById("category");
 
+// Automatically update type dropdown based on category selection
+categorySelect.addEventListener("change", () => {
+    const value = categorySelect.value;
+
+    if (incomeCats.includes(value)) {
+        document.getElementById("type").value = "income";
+    } else if (expenseCats.includes(value)) {
+        document.getElementById("type").value = "expense";
+    }
+});
+
+
 // Function to refresh category dropdown with "+ Add Category" option
 function refreshCategoryDropdown() {
     categorySelect.innerHTML = '<option value="">Select Category</option>';
