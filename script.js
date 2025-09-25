@@ -278,14 +278,24 @@ function render() {
     const labels = Object.keys(chartData);
     const data = Object.values(chartData);
 
-    // Assign colors
-    const colorMap = {};
-    labels.forEach(label => {
-        if (incomeCats.includes(label)) colorMap[label] = greenShades[incomeCats.indexOf(label) % greenShades.length];
-        else if (expenseCats.includes(label)) colorMap[label] = redShades[expenseCats.indexOf(label) % redShades.length];
-        else colorMap[label] = "#CCCCCC";
-    });
-    const backgroundColors = labels.map(label => colorMap[label]);
+   // Assign colors
+const colorMap = {};
+labels.forEach(label => {
+    if (incomeCats.includes(label)) {
+        // Pick green shade based on index in incomeCats array
+        const index = incomeCats.indexOf(label);
+        colorMap[label] = greenShades[index % greenShades.length];
+    } else if (expenseCats.includes(label)) {
+        // Pick red shade based on index in expenseCats array
+        const index = expenseCats.indexOf(label);
+        colorMap[label] = redShades[index % redShades.length];
+    } else {
+        colorMap[label] = "#CCCCCC"; // fallback color
+    }
+});
+
+const backgroundColors = labels.map(label => colorMap[label]);
+
 
     // Calculate balance
     const balance = totalIncome - totalExpense;
