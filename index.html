@@ -18,7 +18,136 @@
     <a href="#" id="homeLink">Home</a> |
     <a href="#" id="expensesLink">Expenses Tracker</a> |
     <a href="#" id="contactLink">Contact Us</a>
+  </div><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Ribbon -->
+    <div id="topRibbon">
+        <span id="welcomeMsg">Welcome</span>
+        <button id="changeNameBtn">Change Name</button>
+    </div>
+
+  <!-- Navigation Ribbon -->
+  <div class="nav-ribbon">
+    <a href="#" id="homeLink">Home</a> |
+    <a href="#" id="expensesLink">Expenses Tracker</a> |
+    <a href="#" id="contactLink">Contact Us</a>
   </div>
+
+<!-- Home Page (Coming Soon) -->
+  <div id="homePage" class="page">
+      <h2>Home Page</h2>
+      <p>Coming Soon!</p>
+  </div>
+
+  <!-- Expenses Tracker Page -->
+  <div id="expenseSection" class="page">
+      <h1>Expense Tracker</h1>
+
+    <!-- Form to Add Entry -->
+    <div class="form-container">
+        <input type="date" id="date">
+        <input type="text" id="desc" placeholder="Description">
+ <select id="category">
+    <option value="">Select Category</option>
+
+    <optgroup label="Income">
+    <option value="Salary">Salary</option>
+    <option value="Bonus">Bonus</option>
+    <option value="Saving">Saving</option>
+    <option value="Interest">Interest</option>
+    <option value="Other">Other</option>
+</optgroup>
+
+<optgroup label="Expenses">
+    <option value="Rent">Rent</option>
+    <option value="Food">Food</option>
+    <option value="Medicine">Medicine</option>
+    <option value="Insurance">Insurance</option>
+    <option value="Transport">Transport</option>
+    <option value="Clothing">Clothing</option>
+    <option value="Internet">Internet</option>
+    <option value="Fees">Fees</option>
+    <option value="Entertainment">Entertainment</option>
+    <option value="Charity">Charity</option>
+    <option value="Charity">Charity</option>
+
+</optgroup>
+
+</select>
+
+        <input type="number" id="amount" placeholder="Amount">
+        <select id="type">
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+        </select>
+        <button id="addBtn">Add</button>
+        
+    </div>
+
+    <!-- Entries Heading -->
+    <h2>Entries</h2>
+
+    <!-- Side-by-Side Tables -->
+    <div class="tables-container">
+        <!-- Income Table -->
+        <div class="table-wrapper">
+            <h3>Income</h3>
+            <table id="incomeTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <!-- Expenses Table -->
+        <div class="table-wrapper">
+            <h3>Expenses</h3>
+            <table id="expenseTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Summary -->
+    <h2>Summary</h2>
+    <p>Total Income: <span id="totalIncome">0</span></p>
+    <p>Total Expenses: <span id="totalExpense">0</span></p>
+    <p>Balance: <span id="balance">0</span></p>
+
+    <!-- Pie Chart -->
+   <h2>Income vs Expenses by Category</h2>
+<div class="chart-container">
+    <canvas id="pieChart"></canvas>
+</div>
+    <!-- Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
 
 <!-- Home Page (Coming Soon) -->
   <div id="homePage" class="page">

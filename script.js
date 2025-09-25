@@ -24,11 +24,153 @@ document.getElementById("date").valueAsDate = new Date();
 
 
 // -------------------- Data Arrays --------------------
-const incomeCats = ["Salary","Bonus","Saving from Field","Profit from IPO","Profit from Secondary Market","Indrive","Other Income"];
-const expenseCats = ["Bike: Fuel","Bike: Servicing","Bike: Renewal","Bike: Insurance",
-                     "Scooter: Servicing","Scooter: Renewal","Scooter: Insurance",
-                     "Clothing","Food","Travel","Hospital","Internet","Futsal",
-                     "College Fee","Bank Charge","Charity","Other Expense"];
+const incomeCats = ["Salary","Bonus","Saving","Interest","Other"];
+const expenseCats = ["Rent","Food","Medicine","Insurance","Transport","Clothing","Internet","Fees","Entertainment","Charity","Other"];
+
+// -------------------- Category Management --------------------
+const categorySelect = document.getElementById("category");
+
+// Function to refresh category dropdown with "+ Add Category" option
+function refreshCategoryDropdown() {
+    categorySelect.innerHTML = '<option value="">Select Category</option>';
+
+    // Income options
+    const incomeGroup = document.createElement("optgroup");
+    incomeGroup.label = "Income";
+    incomeCats.forEach(cat => {
+        const option = document.createElement("option");
+        option.value = cat;
+        option.text = cat;
+        incomeGroup.appendChild(option);
+    });
+    // Add "+ Add Category" at the end
+    const addIncomeOption = document.createElement("option");
+    addIncomeOption.value = "__add_income__";
+    addIncomeOption.text = "+ Add Category";
+    incomeGroup.appendChild(addIncomeOption);
+
+    categorySelect.appendChild(incomeGroup);
+
+    // Expense options
+    const expenseGroup = document.createElement("optgroup");
+    expenseGroup.label = "Expenses";
+    expenseCats.forEach(cat => {
+        const option = document.createElement("option");
+        option.value = cat;
+        option.text = cat;
+        expenseGroup.appendChild(option);
+    });
+    // Add "+ Add Category" at the end
+    const addExpenseOption = document.createElement("option");
+    addExpenseOption.value = "__add_expense__";
+    addExpenseOption.text = "+ Add Category";
+    expenseGroup.appendChild(addExpenseOption);
+
+    categorySelect.appendChild(expenseGroup);
+
+    // For Income
+const removeIncomeOption = document.createElement("option");
+removeIncomeOption.value = "__remove_income__";
+removeIncomeOption.text = "− Remove Category";
+incomeGroup.appendChild(removeIncomeOption);
+
+// For Expense
+const removeExpenseOption = document.createElement("option");
+removeExpenseOption.value = "__remove_expense__";
+removeExpenseOption.text = "− Remove Category";
+expenseGroup.appendChild(removeExpenseOption);
+
+
+}
+
+// Initial load of categories
+refreshCategoryDropdown();
+
+// -------------------- Detect when "+ Add Category" is selected --------------------
+categorySelect.addEventListener("change", () => {
+    const value = categorySelect.value;
+
+    if (value === "__add_income__") {
+        const newCat = prompt("Enter new Income category:");
+        if (newCat && !incomeCats.includes(newCat)) {
+            incomeCats.push(newCat);
+            refreshCategoryDropdown();
+            categorySelect.value = newCat; // Select the new category
+        } else {
+            categorySelect.value = ""; // Reset selection if invalid
+        }
+    }
+
+    if (value === "__add_expense__") {
+        const newCat = prompt("Enter new Expense category:");
+        if (newCat && !expenseCats.includes(newCat)) {
+            expenseCats.push(newCat);
+            refreshCategoryDropdown();
+            categorySelect.value = newCat; // Select the new category
+        } else {
+            categorySelect.value = ""; // Reset selection if invalid
+        }
+    }
+
+    categorySelect.addEventListener("change", () => {
+    const value = categorySelect.value;
+
+    // --- Add Category ---
+    if (value === "__add_income__") {
+        const newCat = prompt("Enter new Income category:");
+        if (newCat && !incomeCats.includes(newCat)) {
+            incomeCats.push(newCat);
+            refreshCategoryDropdown();
+            categorySelect.value = newCat;
+        } else {
+            categorySelect.value = "";
+        }
+    }
+
+    if (value === "__add_expense__") {
+        const newCat = prompt("Enter new Expense category:");
+        if (newCat && !expenseCats.includes(newCat)) {
+            expenseCats.push(newCat);
+            refreshCategoryDropdown();
+            categorySelect.value = newCat;
+        } else {
+            categorySelect.value = "";
+        }
+    }
+
+    // --- Remove Category (Paste Here) ---
+    if (value === "__remove_income__") {
+        const catToRemove = prompt("Enter income category to remove:");
+        if (catToRemove && incomeCats.includes(catToRemove) && catToRemove !== "Other") {
+            incomeCats.splice(incomeCats.indexOf(catToRemove), 1);
+            refreshCategoryDropdown();
+            categorySelect.value = "";
+        } else {
+            alert("Invalid category or cannot remove 'Other'");
+            categorySelect.value = "";
+        }
+    }
+
+    if (value === "__remove_expense__") {
+        const catToRemove = prompt("Enter expense category to remove:");
+        if (catToRemove && expenseCats.includes(catToRemove) && catToRemove !== "Other") {
+            expenseCats.splice(expenseCats.indexOf(catToRemove), 1);
+            refreshCategoryDropdown();
+            categorySelect.value = "";
+        } else {
+            alert("Invalid category or cannot remove 'Other'");
+            categorySelect.value = "";
+        }
+    }
+});
+
+
+});
+
+
+
+
+
 const greenShades = ["#4CAF50", "#66BB6A", "#81C784", "#388E3C", "#2E7D32", "#1B5E20", "#A5D6A7"];
 const redShades = ["#C62828", "#E53935", "#EF5350", "#B71C1C", "#FFCDD2", "#D32F2F", "#F44336"];
 
