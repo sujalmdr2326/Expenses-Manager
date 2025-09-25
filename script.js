@@ -139,29 +139,43 @@ categorySelect.addEventListener("change", () => {
     }
 
     // --- Remove Category (Paste Here) ---
-    if (value === "__remove_income__") {
-        const catToRemove = prompt("Enter income category to remove:");
-        if (catToRemove && incomeCats.includes(catToRemove) && catToRemove !== "Other") {
-            incomeCats.splice(incomeCats.indexOf(catToRemove), 1);
-            refreshCategoryDropdown();
-            categorySelect.value = "";
-        } else {
-            alert("Invalid category or cannot remove 'Other'");
-            categorySelect.value = "";
-        }
+   // --- Remove Category ---
+if (value === "__remove_income__") {
+    const catToRemove = prompt("Enter income category to remove:");
+    if (!catToRemove) {
+        categorySelect.value = "";
+        return;
     }
+    const actualCat = incomeCats.find(c => c.toLowerCase() === catToRemove.toLowerCase());
+    if (!actualCat || actualCat === "Other") {
+        alert("Invalid category or cannot remove 'Other'");
+        categorySelect.value = "";
+        return;
+    }
+    incomeCats.splice(incomeCats.indexOf(actualCat), 1);
+    refreshCategoryDropdown();
+    categorySelect.value = "";
+    alert(`Income category "${actualCat}" removed successfully`);
+}
 
-    if (value === "__remove_expense__") {
-        const catToRemove = prompt("Enter expense category to remove:");
-        if (catToRemove && expenseCats.includes(catToRemove) && catToRemove !== "Other") {
-            expenseCats.splice(expenseCats.indexOf(catToRemove), 1);
-            refreshCategoryDropdown();
-            categorySelect.value = "";
-        } else {
-            alert("Invalid category or cannot remove 'Other'");
-            categorySelect.value = "";
-        }
+if (value === "__remove_expense__") {
+    const catToRemove = prompt("Enter expense category to remove:");
+    if (!catToRemove) {
+        categorySelect.value = "";
+        return;
     }
+    const actualCat = expenseCats.find(c => c.toLowerCase() === catToRemove.toLowerCase());
+    if (!actualCat || actualCat === "Other") {
+        alert("Invalid category or cannot remove 'Other'");
+        categorySelect.value = "";
+        return;
+    }
+    expenseCats.splice(expenseCats.indexOf(actualCat), 1);
+    refreshCategoryDropdown();
+    categorySelect.value = "";
+    alert(`Expense category "${actualCat}" removed successfully`);
+}
+
 });
 
 
