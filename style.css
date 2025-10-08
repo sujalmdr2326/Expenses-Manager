@@ -79,17 +79,53 @@ input, select {
     flex: 1;
 }
 
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
+/* Action buttons container */
+.action-cell {
+    display: flex;      /* side by side */
+    justify-content: center; /* center them horizontally */
+    gap: 5px;           /* spacing between buttons */
 }
 
-button:hover {
+/* Edit button */
+button.edit-btn {
+    background-color: #FFC107; /* yellow */
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button.edit-btn:hover {
+    opacity: 0.85;
+}
+
+/* Remove button */
+button.remove-btn {
+    background-color: #F44336; /* red */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button.remove-btn:hover {
+    opacity: 0.85;
+}
+
+/* Generic button hover (like Add button) */
+button:not(.edit-btn):not(.remove-btn):hover {
     background-color: #388E3C;
 }
+
+
+
+/* Generic button hover only if it’s not edit or remove */
+button:not(.edit-btn):not(.remove-btn):hover {
+    background-color: #388E3C;
+}
+
 
 /* ------------------ Tables ------------------ */
 .tables-container {
@@ -141,7 +177,7 @@ th {
 }
 
 .remove-btn {
-    background-color: #F44336;
+    background-color: #4CAF50; /* green */
     color: white;
     border: none;
     padding: 5px 10px;
@@ -152,8 +188,6 @@ th {
 .remove-btn:hover {
     opacity: 0.85;
 }
-
-
 
 /* ------------------ Chart ------------------ */
 .chart-container {
