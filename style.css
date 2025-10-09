@@ -241,3 +241,43 @@ th {
         gap: 10px;
     }
 }
+
+
+/* --- Fix tooltip appearing behind elements --- */
+.chart-container {
+  position: relative;
+  overflow: visible !important;
+  z-index: 1000;
+}
+
+#pieChart {
+  position: relative;
+  z-index: 1001;
+}
+
+/* Optional: make sure no parent element hides overflow */
+.page {
+  overflow: visible !important;
+}
+
+#dateSortBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;                  /* slightly bigger square */
+    height: 28px;
+    background-color: #A5D6A7;    /* light green */
+    border: 1px solid #4CAF50;    /* green border */
+    border-radius: 6px;            /* more rounded */
+    cursor: pointer;
+    font-size: 16px;               /* bigger arrow */
+    font-weight: bold;
+    padding: 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);  /* subtle shadow */
+    transition: background 0.2s, transform 0.2s; /* smooth hover effect */
+}
+
+#dateSortBtn:hover {
+    background-color: #81C784;  /* slightly darker green on hover */
+    transform: scale(1.1);      /* small pop effect */
+}

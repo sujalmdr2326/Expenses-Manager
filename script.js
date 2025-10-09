@@ -1,4 +1,6 @@
 let editingIndex = null;
+let dateDescending = true; // default: newest first
+
 
 // -------------------- Welcome User --------------------
 function setUsername(name) {
@@ -26,8 +28,8 @@ document.getElementById("date").valueAsDate = new Date();
 
 // -------------------- Data Arrays --------------------
 // Load saved categories from localStorage or use default
-let incomeCats = JSON.parse(localStorage.getItem('incomeCats')) || ["Salary","Bonus","Saving","Interest","Other"];
-let expenseCats = JSON.parse(localStorage.getItem('expenseCats')) || ["Rent","Food","Medicine","Insurance","Transport","Clothing","Internet","Fees","Entertainment","Charity","Other"];
+let incomeCats = JSON.parse(localStorage.getItem('incomeCats')) || ["Salary","Bonus","Saving","Interest"];
+let expenseCats = JSON.parse(localStorage.getItem('expenseCats')) || ["Rent","Food","Medicine","Insurance","Transport","Clothing","Internet","Fees","Entertainment","Charity"];
 
 
 const greenShades = ["#4CAF50", "#66BB6A", "#81C784", "#388E3C", "#2E7D32", "#1B5E20", "#A5D6A7"];
@@ -113,33 +115,49 @@ categorySelect.addEventListener("change", () => {
     }
 
     // Remove income category
-    if (value === "__remove_income__") {
-        const catToRemove = prompt("Enter income category to remove:");
-        if (catToRemove && incomeCats.includes(catToRemove) && catToRemove !== "Other") {
-            incomeCats.splice(incomeCats.indexOf(catToRemove), 1);
+if (value === "__remove_income__") {
+    const catToRemove = prompt("Enter income category to remove:");
+    if (catToRemove) {
+        const foundIndex = incomeCats.findIndex(c => c.toLowerCase() === catToRemove.toLowerCase());
+        if (foundIndex !== -1 && incomeCats[foundIndex] !== "Other") {
+            incomeCats.splice(foundIndex, 1);
             localStorage.setItem('incomeCats', JSON.stringify(incomeCats));
         } else {
             alert("Invalid category or cannot remove 'Other'");
         }
-        refreshCategoryDropdown();
-        categorySelect.value = "";
-        return;
     }
+    refreshCategoryDropdown();
+    categorySelect.value = "";
+    return;
+}
 
-    // Remove expense category
-    if (value === "__remove_expense__") {
-        const catToRemove = prompt("Enter expense category to remove:");
-        if (catToRemove && expenseCats.includes(catToRemove) && catToRemove !== "Other") {
-            expenseCats.splice(expenseCats.indexOf(catToRemove), 1);
+// Remove expense category
+if (value === "__remove_expense__") {
+    const catToRemove = prompt("Enter expense category to remove:");
+    if (catToRemove) {
+        const foundIndex = expenseCats.findIndex(c => c.toLowerCase() === catToRemove.toLowerCase());
+        if (foundIndex !== -1 && expenseCats[foundIndex] !== "Other") {
+            expenseCats.splice(foundIndex, 1);
             localStorage.setItem('expenseCats', JSON.stringify(expenseCats));
         } else {
             alert("Invalid category or cannot remove 'Other'");
         }
-        refreshCategoryDropdown();
-        categorySelect.value = "";
-        return;
+    }
+    refreshCategoryDropdown();
+    categorySelect.value = "";
+    return;
+}
+
+
+    
+
+    // Auto-set type based on category
+    if (!["__add_income__","__add_expense__","__remove_income__","__remove_expense__"].includes(value)) {
+        if (incomeCats.includes(value)) document.getElementById("type").value = "income";
+        else if (expenseCats.includes(value)) document.getElementById("type").value = "expense";
     }
 });
+
 
 // -------------------- Render Function --------------------
 function render() {
@@ -152,7 +170,18 @@ function render() {
     let totalIncome = 0;
     let totalExpense = 0;
 
-    entries.forEach((entry,index) => {
+    entries.sort((a,b) => new Date(b.date) - new Date(a.date));
+
+  const sortedEntries = [...entries].sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    return dateDescending ? dateB - dateA : dateA - dateB;
+});
+
+sortedEntries.forEach((entry) => {
+
+        const originalIndex = entries.indexOf(entry);
+
         const tr = document.createElement("tr");
         tr.innerHTML = `
             <td>${entry.date}</td>
@@ -160,8 +189,8 @@ function render() {
             <td>${entry.category}</td>
             <td>${entry.amount}</td>
             <td class="action-cell">
-    <button class="edit-btn" onclick="editEntry(${index})">Edit</button>
-    <button class="remove-btn" onclick="confirmRemove(${index})">Remove</button>
+    <button class="edit-btn" onclick="editEntry(${originalIndex})">Edit</button>
+    <button class="remove-btn" onclick="confirmRemove(${originalIndex})">Remove</button>
 </td>
 
         `;
@@ -185,13 +214,14 @@ function render() {
 }
 
 document.getElementById("addBtn").addEventListener("click", () => {
-    const date = document.getElementById("date").value;
+    let date =  document.getElementById("date").value;
+    if (!date) date= new Date().toISOString().split('T')[0]; //default today
     const desc = document.getElementById("desc").value.trim();
     const amount = Number(document.getElementById("amount").value);
     const type = document.getElementById("type").value;
     const category = document.getElementById("category").value;
 
-    if (!date || !desc || !category || isNaN(amount) || amount <= 0) 
+    if (!desc || !category || isNaN(amount) || amount <= 0) 
         return alert("Enter valid date, description, category, and amount");
 
     if (editingIndex === null) {
@@ -265,7 +295,7 @@ function renderChart() {
         options:{ responsive:true, maintainAspectRatio:false },
         plugins:[{
             id:'balanceCenter',
-            afterDraw: chart=>{
+            beforeDraw: chart=>{
                 const {ctx, chartArea:{top,bottom,left,right}} = chart;
                 const centerX = left+(right-left)/2;
                 const centerY = top+(bottom-top)/2;
@@ -300,6 +330,13 @@ function showPage(pageId) {
     const page = document.getElementById(pageId);
     if(page) page.style.display='block';
 }
+
+document.getElementById("dateSortBtn").addEventListener("click", () => {
+    dateDescending = !dateDescending; // toggle ascending/descending
+    document.getElementById("dateSortBtn").innerText = dateDescending ? "⬆" : "⬇";
+    render(); // re-render table with new order
+});
+
 
 document.getElementById('homeLink').addEventListener('click', e=>{e.preventDefault();showPage('homePage');});
 document.getElementById('expensesLink').addEventListener('click', e=>{e.preventDefault();showPage('expenseSection');});
