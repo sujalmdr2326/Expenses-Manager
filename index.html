@@ -111,11 +111,56 @@
         </div>
     </div>
 
-    <!-- Summary -->
-    <h2>Summary</h2>
-    <p>Total Income: <span id="totalIncome">0</span></p>
-    <p>Total Expenses: <span id="totalExpense">0</span></p>
-    <p>Balance: <span id="balance">0</span></p>
+<!-- Top Entries Section -->
+<h2>Top Entries</h2>
+<div class="top-entries-container">
+    <div class="top-table-wrapper">
+        <h3>Top 3 Income</h3>
+        <table id="topIncomeTable">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="top-table-wrapper">
+        <h3>Top 3 Expenses</h3>
+        <table id="topExpenseTable">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+
+   <!-- Summary Section -->
+<h2>Summary</h2>
+<div class="summary-container">
+    <div class="summary-card income-card">
+        <div class="summary-title">Total Income</div>
+        <div class="summary-value" id="totalIncome">0</div>
+    </div>
+    <div class="summary-card expense-card">
+        <div class="summary-title">Total Expenses</div>
+        <div class="summary-value" id="totalExpense">0</div>
+    </div>
+    <div class="summary-card balance-card">
+        <div class="summary-title">Balance</div>
+        <div class="summary-value" id="balance">0</div>
+    </div>
+</div>
+
 
     <!-- Pie Chart -->
    <h2>Income vs Expenses by Category</h2>

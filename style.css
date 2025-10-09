@@ -207,6 +207,97 @@ th {
     display: none;
 }
 
+.top-entries-container {
+    display: flex;             /* side by side */
+    gap: 20px;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    flex-wrap: wrap;           /* will wrap on smaller screens */
+}
+
+.top-table-wrapper {
+    flex: 1;                   /* equal width */
+    min-width: 250px;          /* ensures small screens still fit */
+}
+
+#topIncomeTable, #topExpenseTable {
+    width: 100%;               /* full width */
+    border-collapse: collapse;
+    margin-bottom: 20px;       /* spacing below */
+    font-family: Arial, sans-serif;
+}
+
+#topIncomeTable th, #topIncomeTable td,
+#topExpenseTable th, #topExpenseTable td {
+    padding: 8px 12px;         /* padding */
+    border: 1px solid #ccc;    /* border color */
+    text-align: left;
+    font-size: 14px;
+}
+
+#topIncomeTable th {
+    background-color: #4CAF50; /* income header green */
+    color: white;
+}
+
+#topExpenseTable th {
+    background-color: #C62828; /* expense header red */
+    color: white;
+}
+
+/* Optional: zebra stripe rows for better readability */
+#topIncomeTable tbody tr:nth-child(even) {
+    background-color: #E8F5E9;
+}
+#topExpenseTable tbody tr:nth-child(even) {
+    background-color: #FFEBEE;
+}
+
+/* Hover effect (optional but nice) */
+#topIncomeTable tbody tr:hover {
+    background-color: #C8E6C9;
+}
+#topExpenseTable tbody tr:hover {
+    background-color: #FFCDD2;
+}
+
+
+
+/* ---------------- Summary Cards (Balanced Size) ---------------- */
+.summary-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;       /* slightly larger gap */
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.summary-card {
+    flex: 1 1 120px;   /* slightly wider */
+    min-width: 120px;
+    padding: 10px 12px; /* moderate padding */
+    border-radius: 6px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.summary-title {
+    font-size: 14px;   /* moderate title size */
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.summary-value {
+    font-size: 18px;   /* moderate number size */
+    font-weight: bold;
+}
+
+.income-card { background-color: #4CAF50; }
+.expense-card { background-color: #F44336; }
+.balance-card { background-color: #2196F3; }
+
+
 /* ------------------ Responsive ------------------ */
 @media (max-width: 768px) {
     .tables-container {

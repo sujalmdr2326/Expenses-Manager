@@ -170,7 +170,6 @@ function render() {
     let totalIncome = 0;
     let totalExpense = 0;
 
-    entries.sort((a,b) => new Date(b.date) - new Date(a.date));
 
   const sortedEntries = [...entries].sort((a, b) => {
     const dateA = new Date(a.date);
@@ -206,6 +205,35 @@ sortedEntries.forEach((entry) => {
     document.getElementById("totalIncome").innerText = totalIncome;
     document.getElementById("totalExpense").innerText = totalExpense;
     document.getElementById("balance").innerText = totalIncome - totalExpense;
+
+    // ---------------- Top 3 Incomes & Expenses ----------------
+const topIncomeTbody = document.querySelector("#topIncomeTable tbody");
+const topExpenseTbody = document.querySelector("#topExpenseTable tbody");
+
+const topIncomes = entries
+    .filter(e => e.type === "income")
+    .sort((a,b) => b.amount - a.amount)
+    .slice(0,3);
+
+const topExpenses = entries
+    .filter(e => e.type === "expense")
+    .sort((a,b) => b.amount - a.amount)
+    .slice(0,3);
+
+topIncomeTbody.innerHTML = "";
+topExpenseTbody.innerHTML = "";
+
+topIncomes.forEach(e => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${e.date}</td><td>${e.category}</td><td>${e.amount}</td>`;
+    topIncomeTbody.appendChild(tr);
+});
+
+topExpenses.forEach(e => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${e.date}</td><td>${e.category}</td><td>${e.amount}</td>`;
+    topExpenseTbody.appendChild(tr);
+});
 
     // Save latest entries to localStorage
     localStorage.setItem('entries', JSON.stringify(entries));
