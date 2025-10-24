@@ -34,6 +34,28 @@ body {
     background-color: #f1f1f1;
 }
 
+.user-actions {
+    display: flex;
+    gap: 8px; /* spacing between buttons */
+}
+
+.user-actions button {
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    background-color: white;
+    color: #4CAF50;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.user-actions button:hover {
+    background-color: #f1f1f1;
+}
+
+
 /* ------------------ Navigation Ribbon ------------------ */
 .nav-ribbon {
     background-color: #66BB6A;
@@ -61,6 +83,8 @@ body {
 h1, h2, h3 {
     text-align: center;
 }
+
+/* -------------------------------------- Expenses Tracker ----------------------   */
 
 /* ------------------ Form Layout ------------------ */
 .form-container {
@@ -399,3 +423,8 @@ th {
     background-color: #81C784;  /* slightly darker green on hover */
     transform: scale(1.1);      /* small pop effect */
 }
+
+
+/* -------------------------------------- Expenses Tracker ----------------------   */
+
+/* -------------------------------------- My Portfolio ----------------------   */

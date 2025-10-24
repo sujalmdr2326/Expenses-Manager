@@ -1,7 +1,3 @@
-let editingIndex = null;
-let dateDescending = true; // default: newest first
-
-
 // -------------------- Welcome User --------------------
 function setUsername(name) {
     localStorage.setItem('username', name);
@@ -17,26 +13,256 @@ if (!username) {
     setUsername(username);
 }
 
+// Keep track of all users
+let allUsers = JSON.parse(localStorage.getItem("allUsers")) || [];
+if (!allUsers.includes(username)) {
+    allUsers.push(username);
+    localStorage.setItem("allUsers", JSON.stringify(allUsers));
+}
+
+// Helper to add a user to list
+function addUserToList(name) {
+    if (!allUsers.includes(name)) {
+        allUsers.push(name);
+        localStorage.setItem("allUsers", JSON.stringify(allUsers));
+    }
+}
+let editingIndex = null;
+let dateDescending = true; // default: newest first
+
+
 // Change name button
 document.getElementById('changeNameBtn').addEventListener('click', () => {
     const newName = prompt("Enter your new name:") || "User";
     setUsername(newName);
 });
 
+// -------------------- Reset Data Button --------------------
+const resetBtn = document.getElementById('resetBtn');
+
+resetBtn.addEventListener('click', () => {
+    if (confirm("Are you sure you want to reset all data?")) {
+        resetAllData();
+    }
+});
+// -------------------- Switch User Button --------------------
+switchUserBtn.addEventListener('click', () => {
+    // Create modal overlay
+    const modal = document.createElement('div');
+    modal.style.position = "fixed";
+    modal.style.top = "0";
+    modal.style.left = "0";
+    modal.style.width = "100%";
+    modal.style.height = "100%";
+    modal.style.background = "rgba(0,0,0,0.6)";
+    modal.style.display = "flex";
+    modal.style.alignItems = "center";
+    modal.style.justifyContent = "center";
+    modal.style.zIndex = "9999";
+
+    // Create container card
+    const container = document.createElement('div');
+    container.style.background = "#fff";
+    container.style.padding = "30px 40px";
+    container.style.borderRadius = "15px";
+    container.style.boxShadow = "0 10px 30px rgba(0,0,0,0.3)";
+    container.style.textAlign = "center";
+    container.style.width = "400px";
+    container.style.maxWidth = "90%";
+    modal.appendChild(container);
+
+    // Title
+    const title = document.createElement('h2');
+    title.innerText = "Switch User";
+    title.style.marginBottom = "25px";
+    title.style.color = "#333";
+    title.style.fontFamily = "Arial, sans-serif";
+    container.appendChild(title);
+
+    // Users list container
+    const usersList = document.createElement('div');
+    usersList.style.textAlign = "left";
+    usersList.style.maxHeight = "250px";
+    usersList.style.overflowY = "auto";
+    usersList.style.marginBottom = "20px";
+    container.appendChild(usersList);
+
+    // Create user rows
+    allUsers.forEach(user => {
+        const userRow = document.createElement('div');
+        userRow.style.display = "flex";
+        userRow.style.justifyContent = "space-between";
+        userRow.style.alignItems = "center";
+        userRow.style.padding = "8px 0";
+        userRow.style.borderBottom = "1px solid #eee";
+
+        const nameSpan = document.createElement('span');
+        nameSpan.innerText = user === username ? `${user} (Current)` : user;
+        nameSpan.style.fontWeight = user === username ? "bold" : "normal";
+        nameSpan.style.color = "#555";
+
+        const buttonsDiv = document.createElement('div');
+
+        if (user !== username) {
+            // Switch button
+            const switchBtn = document.createElement('button');
+            switchBtn.innerText = "Switch";
+            switchBtn.style.marginRight = "8px";
+            switchBtn.style.padding = "5px 12px";
+            switchBtn.style.border = "none";
+            switchBtn.style.borderRadius = "6px";
+            switchBtn.style.backgroundColor = "#4CAF50";
+            switchBtn.style.color = "#fff";
+            switchBtn.style.cursor = "pointer";
+            switchBtn.style.transition = "0.3s";
+            switchBtn.onmouseover = () => switchBtn.style.opacity = "0.8";
+            switchBtn.onmouseout = () => switchBtn.style.opacity = "1";
+            switchBtn.onclick = () => {
+                username = user;
+                addUserToList(user);
+                localStorage.setItem("username", user);
+                setUsername(user);
+                loadUserData(user);
+                document.body.removeChild(modal);
+            };
+
+            // Remove button
+            const removeBtn = document.createElement('button');
+            removeBtn.innerText = "Remove";
+            removeBtn.style.padding = "5px 12px";
+            removeBtn.style.border = "none";
+            removeBtn.style.borderRadius = "6px";
+            removeBtn.style.backgroundColor = "#F44336";
+            removeBtn.style.color = "#fff";
+            removeBtn.style.cursor = "pointer";
+            removeBtn.style.transition = "0.3s";
+            removeBtn.onmouseover = () => removeBtn.style.opacity = "0.8";
+            removeBtn.onmouseout = () => removeBtn.style.opacity = "1";
+            removeBtn.onclick = () => {
+                if (confirm(`Are you sure you want to remove user "${user}"?`)) {
+                    allUsers = allUsers.filter(u => u !== user);
+                    localStorage.setItem("allUsers", JSON.stringify(allUsers));
+                    userRow.remove();
+                }
+            };
+
+            buttonsDiv.appendChild(switchBtn);
+            buttonsDiv.appendChild(removeBtn);
+        }
+
+        userRow.appendChild(nameSpan);
+        userRow.appendChild(buttonsDiv);
+        usersList.appendChild(userRow);
+    });
+
+    // Add new user button
+    const addNewBtn = document.createElement('button');
+    addNewBtn.innerText = "➕ Add New User";
+    addNewBtn.style.width = "100%";
+    addNewBtn.style.marginTop = "15px";
+    addNewBtn.style.padding = "12px";
+    addNewBtn.style.border = "none";
+    addNewBtn.style.borderRadius = "8px";
+    addNewBtn.style.backgroundColor = "#2196F3";
+    addNewBtn.style.color = "#fff";
+    addNewBtn.style.fontSize = "16px";
+    addNewBtn.style.cursor = "pointer";
+    addNewBtn.style.transition = "0.3s";
+    addNewBtn.onmouseover = () => addNewBtn.style.opacity = "0.8";
+    addNewBtn.onmouseout = () => addNewBtn.style.opacity = "1";
+    addNewBtn.onclick = () => {
+        const newUser = prompt("Enter new username:") || "User";
+        username = newUser;
+        addUserToList(newUser);
+        localStorage.setItem("username", newUser);
+        setUsername(newUser);
+        loadUserData(newUser);
+        document.body.removeChild(modal);
+    };
+    container.appendChild(addNewBtn);
+
+    // Cancel button
+    const cancelBtn = document.createElement('button');
+    cancelBtn.innerText = "❌ Cancel";
+    cancelBtn.style.marginTop = "12px";
+    cancelBtn.style.width = "100%";
+    cancelBtn.style.padding = "12px";
+    cancelBtn.style.border = "1px solid #ccc";
+    cancelBtn.style.borderRadius = "8px";
+    cancelBtn.style.backgroundColor = "#fff";
+    cancelBtn.style.color = "#333";
+    cancelBtn.style.fontSize = "16px";
+    cancelBtn.style.cursor = "pointer";
+    cancelBtn.style.transition = "0.3s";
+    cancelBtn.onmouseover = () => cancelBtn.style.backgroundColor = "#f2f2f2";
+    cancelBtn.onmouseout = () => cancelBtn.style.backgroundColor = "#fff";
+    cancelBtn.onclick = () => document.body.removeChild(modal);
+    container.appendChild(cancelBtn);
+
+    document.body.appendChild(modal);
+});
+
+
+// Function to load user-specific data
+function loadUserData(username) {
+    // Try to get entries for this user
+   const savedEntries = JSON.parse(localStorage.getItem(`entries_${username}`));
+if (savedEntries) {
+    entries = savedEntries;
+} else {
+    entries = [];
+    localStorage.setItem(`entries_${username}`, JSON.stringify(entries)); // <-- ADD THIS
+}
+
+    // Save categories separately if needed
+    const savedIncomeCats = JSON.parse(localStorage.getItem(`incomeCats_${username}`));
+    const savedExpenseCats = JSON.parse(localStorage.getItem(`expenseCats_${username}`));
+    if (savedIncomeCats) incomeCats = savedIncomeCats;
+    if (savedExpenseCats) expenseCats = savedExpenseCats;
+
+    refreshCategoryDropdown();
+    render();
+}
+
+
+// Function to reset all data
+function resetAllData() {
+    // Clear main tables
+    document.querySelector("#incomeTable tbody").innerHTML = '';
+    document.querySelector("#expenseTable tbody").innerHTML = '';
+    
+    // Clear top 3 tables
+    document.querySelector("#topIncomeTable tbody").innerHTML = '';
+    document.querySelector("#topExpenseTable tbody").innerHTML = '';
+
+    // Reset summary cards
+    document.getElementById("totalIncome").innerText = '0';
+    document.getElementById("totalExpense").innerText = '0';
+    document.getElementById("balance").innerText = '0';
+
+    // Reset chart
+    renderChart(); // will redraw chart empty if entries are cleared
+
+    // Clear entries array and localStorage
+    entries = [];
+    localStorage.removeItem(`entries_${username}`);
+
+}
+
+
 // -------------------- Set today's date in date input --------------------
 document.getElementById("date").valueAsDate = new Date();
 
 // -------------------- Data Arrays --------------------
 // Load saved categories from localStorage or use default
-let incomeCats = JSON.parse(localStorage.getItem('incomeCats')) || ["Salary","Bonus","Saving","Interest"];
-let expenseCats = JSON.parse(localStorage.getItem('expenseCats')) || ["Rent","Food","Medicine","Insurance","Transport","Clothing","Internet","Fees","Entertainment","Charity"];
-
+let incomeCats = JSON.parse(localStorage.getItem(`incomeCats_${username}`)) || ["Salary","Bonus","Saving","Interest"];
+let expenseCats = JSON.parse(localStorage.getItem(`expenseCats_${username}`)) || ["Rent","Food","Medicine","Insurance","Transport","Clothing","Internet","Fees","Entertainment","Charity"];
 
 const greenShades = ["#4CAF50", "#66BB6A", "#81C784", "#388E3C", "#2E7D32", "#1B5E20", "#A5D6A7"];
 const redShades = ["#C62828", "#E53935", "#EF5350", "#B71C1C", "#FFCDD2", "#D32F2F", "#F44336"];
 
 // -------------------- Load Entries --------------------
-let entries = JSON.parse(localStorage.getItem('entries')) || [];
+let entries = JSON.parse(localStorage.getItem(`entries_${username}`)) || [];
 
 // -------------------- Category Management --------------------
 const categorySelect = document.getElementById("category");
@@ -95,7 +321,7 @@ categorySelect.addEventListener("change", () => {
         const newCat = prompt("Enter new Income category:");
         if (newCat && !incomeCats.includes(newCat)) {
             incomeCats.push(newCat);
-            localStorage.setItem('incomeCats', JSON.stringify(incomeCats));
+          localStorage.setItem(`incomeCats_${username}`, JSON.stringify(incomeCats));
         }
         refreshCategoryDropdown();
         categorySelect.value = newCat || "";
@@ -107,21 +333,22 @@ categorySelect.addEventListener("change", () => {
         const newCat = prompt("Enter new Expense category:");
         if (newCat && !expenseCats.includes(newCat)) {
             expenseCats.push(newCat);
-            localStorage.setItem('expenseCats', JSON.stringify(expenseCats));
+            localStorage.setItem(`expenseCats_${username}`, JSON.stringify(expenseCats));
         }
         refreshCategoryDropdown();
         categorySelect.value = newCat || "";
         return;
     }
 
-    // Remove income category
+   // Remove income category
 if (value === "__remove_income__") {
     const catToRemove = prompt("Enter income category to remove:");
     if (catToRemove) {
         const foundIndex = incomeCats.findIndex(c => c.toLowerCase() === catToRemove.toLowerCase());
-        if (foundIndex !== -1 && incomeCats[foundIndex] !== "Other") {
-            incomeCats.splice(foundIndex, 1);
-            localStorage.setItem('incomeCats', JSON.stringify(incomeCats));
+       if (foundIndex !== -1) {
+    incomeCats.splice(foundIndex, 1);
+
+            localStorage.setItem(`incomeCats_${username}`, JSON.stringify(incomeCats));
         } else {
             alert("Invalid category or cannot remove 'Other'");
         }
@@ -136,9 +363,10 @@ if (value === "__remove_expense__") {
     const catToRemove = prompt("Enter expense category to remove:");
     if (catToRemove) {
         const foundIndex = expenseCats.findIndex(c => c.toLowerCase() === catToRemove.toLowerCase());
-        if (foundIndex !== -1 && expenseCats[foundIndex] !== "Other") {
-            expenseCats.splice(foundIndex, 1);
-            localStorage.setItem('expenseCats', JSON.stringify(expenseCats));
+      if (foundIndex !== -1) {
+    expenseCats.splice(foundIndex, 1);
+
+            localStorage.setItem(`expenseCats_${username}`, JSON.stringify(expenseCats));
         } else {
             alert("Invalid category or cannot remove 'Other'");
         }
@@ -234,7 +462,7 @@ topExpenses.forEach(e => {
 });
 
     // Save latest entries to localStorage
-    localStorage.setItem('entries', JSON.stringify(entries));
+   localStorage.setItem(`entries_${username}`, JSON.stringify(entries));
 
     renderChart();
 }
