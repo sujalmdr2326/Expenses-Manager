@@ -148,14 +148,12 @@ if (value === "__remove_expense__") {
     return;
 }
 
-
-    
-
-    // Auto-set type based on category
+ // Auto-set type based on category
     if (!["__add_income__","__add_expense__","__remove_income__","__remove_expense__"].includes(value)) {
         if (incomeCats.includes(value)) document.getElementById("type").value = "income";
         else if (expenseCats.includes(value)) document.getElementById("type").value = "expense";
     }
+
 });
 
 
@@ -329,6 +327,7 @@ function renderChart() {
                 const centerY = top+(bottom-top)/2;
                 const innerRadius = chart.getDatasetMeta(0).data[0].innerRadius;
                 const radius = innerRadius*0.95;
+                const formattedBalance = Number(balance).toFixed(2); // max 2 digits after decimal
 
                 ctx.save();
                 ctx.beginPath();
@@ -342,12 +341,24 @@ function renderChart() {
                 ctx.fillStyle="#000000";
                 ctx.textAlign="center";
                 ctx.textBaseline="middle";
-                ctx.font=`${radius/4}px Arial`;
-                ctx.fillText("Balance",centerX,centerY-radius/6);
-                ctx.font=`${radius/2.2}px Arial`;
-                ctx.fillText(balance,centerX,centerY+radius/6);
-                ctx.restore();
-            }
+ // Draw "Balance" text
+    ctx.font = `${radius/4}px Arial`;
+    ctx.fillText("Balance", centerX, centerY - radius/6);
+
+    // Dynamically calculate font size for balance amount
+    let fontSize = radius / 2.2;
+    ctx.font = `${fontSize}px Arial`;
+    let textWidth = ctx.measureText(formattedBalance).width;
+
+    while(textWidth > radius * 1.6) { // shrink until it fits
+        fontSize -= 1;
+        ctx.font = `${fontSize}px Arial`;
+        textWidth = ctx.measureText(formattedBalance).width;
+    }
+
+    ctx.fillText(formattedBalance, centerX, centerY + radius/6);
+    ctx.restore();
+}
         }]
     });
 }

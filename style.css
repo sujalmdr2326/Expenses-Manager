@@ -79,6 +79,30 @@ input, select {
     flex: 1;
 }
 
+/* Make Date column same width in both tables */
+#incomeTable th:nth-child(1),
+#expenseTable th:nth-child(1) {
+    width: 120px;  /* adjust if needed */
+}
+
+/* Ensure both tables headers have same height */
+.table-wrapper table th {
+    line-height: 1.2;       /* uniform line height */
+    height: 40px;            /* fixed height for all headers */
+    vertical-align: middle;  /* center content */
+}
+
+/* Adjust the sort button inside header */
+#dateSortBtn {
+    display: inline-block;           /* inline-block instead of flex */
+    vertical-align: middle;          /* align with text */
+    width: 20px;                     /* smaller width */
+    height: 20px;                    /* smaller height */
+    font-size: 14px;                 /* smaller arrow */
+    padding: 0;                      /* remove extra padding */
+    margin-left: 4px;                /* slight spacing from text */
+}
+
 /* Action buttons container */
 .action-cell {
     display: flex;      /* side by side */
@@ -114,6 +138,8 @@ button.remove-btn:hover {
     opacity: 0.85;
 }
 
+
+
 /* Generic button hover (like Add button) */
 button:not(.edit-btn):not(.remove-btn):hover {
     background-color: #388E3C;
@@ -125,6 +151,7 @@ button:not(.edit-btn):not(.remove-btn):hover {
 button:not(.edit-btn):not(.remove-btn):hover {
     background-color: #388E3C;
 }
+
 
 
 /* ------------------ Tables ------------------ */
