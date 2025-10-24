@@ -345,20 +345,18 @@ function renderChart() {
     ctx.font = `${radius/4}px Arial`;
     ctx.fillText("Balance", centerX, centerY - radius/6);
 
-   // Dynamically calculate font size for balance amount
-let fontSize = radius / 2.2;
-ctx.font = `${fontSize}px Arial`;
-let textWidth = ctx.measureText(formattedBalance).width;
-
-// Shrink text until it fits inside the circle
-while(textWidth > radius * 1.6 && fontSize > 10) { // minimum font size 10
-    fontSize -= 1;
+    // Dynamically calculate font size for balance amount
+    let fontSize = radius / 2.2;
     ctx.font = `${fontSize}px Arial`;
-    textWidth = ctx.measureText(formattedBalance).width;
-}
+    let textWidth = ctx.measureText(formattedBalance).width;
 
-ctx.fillText(formattedBalance, centerX, centerY + radius/6);
+    while(textWidth > radius * 1.6) { // shrink until it fits
+        fontSize -= 1;
+        ctx.font = `${fontSize}px Arial`;
+        textWidth = ctx.measureText(formattedBalance).width;
+    }
 
+    ctx.fillText(formattedBalance, centerX, centerY + radius/6);
     ctx.restore();
 }
         }]
