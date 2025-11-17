@@ -1,11 +1,19 @@
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+}
+
+
 /* ------------------ General Layout ------------------ */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
-    max-width: 100%; /* Use full screen width */
+    max-width: 100%; 
     box-sizing: border-box;
-    overflow-y: auto;   /* Move here */
+    overflow-x: hidden;  /* prevent horizontal scroll */
+    overflow-y: auto;    /* allow vertical scroll */
+    -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
 }
 
 /* ------------------ Top Ribbon ------------------ */
@@ -191,6 +199,7 @@ button:not(.edit-btn):not(.remove-btn):hover {
     flex: 1;
     min-width: 300px;
     overflow-x: auto;   /* FIX horizontal table overflow */
+    -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
 
 }
 
@@ -315,6 +324,11 @@ th {
     background-color: #FFCDD2;
 }
 
+.page {
+    display: none;
+    overflow: visible !important;
+    min-height: 100vh;  /* ensures page fills mobile screen */
+}
 
 
 /* ---------------- Summary Cards (Balanced Size) ---------------- */
