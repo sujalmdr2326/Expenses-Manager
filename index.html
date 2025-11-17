@@ -21,8 +21,10 @@
   <!-- Navigation Ribbon -->
   <div class="nav-ribbon">
     <a href="#" id="homeLink">Home</a> |
-    <a href="#" id="expensesLink">Expenses Tracker</a> |
-    <a href="#" id="contactLink">Contact Us</a>
+<a href="#" id="expensesLink">Expenses Tracker</a> |
+<a href="#" id="portfolioLink">My Portfolio</a> |
+<a href="#" id="contactLink">Contact Us</a>
+
   </div>
 
 <!-- Home Page (Coming Soon) -->
@@ -31,7 +33,8 @@
       <p>Coming Soon!</p>
   </div>
 
-  <!-- Expenses Tracker Page -->
+<!---------------------------------------- Expenses Tracker Page ---------------------------------------->
+  
   <div id="expenseSection" class="page">
       <h1>Expense Tracker</h1>
 
@@ -166,12 +169,64 @@
     </div>
 </div>
 
-
     <!-- Pie Chart -->
    <h2>Income vs Expenses by Category</h2>
 <div class="chart-container">
     <canvas id="pieChart"></canvas>
 </div>
+
+<!---------------------------------------- Expenses Tracker Page ---------------------------------------->
+
+
+<!---------------------------------------- My Portfolio Page ---------------------------------------->
+
+<section id="portfolioSection" class="page">
+    <h2>My Portfolio</h2>
+
+    <!-- Portfolio Summary Cards -->
+    <div class="portfolio-summary summary-container">
+        <div class="portfolio-card summary-card income-card">
+            <div class="portfolio-title summary-title">Total Invested</div>
+            <div class="portfolio-value summary-value" id="totalInvested">0</div>
+        </div>
+        <div class="portfolio-card summary-card balance-card">
+            <div class="portfolio-title summary-title">Current Value</div>
+            <div class="portfolio-value summary-value" id="currentValue">0</div>
+        </div>
+        <div class="portfolio-card summary-card expense-card">
+            <div class="portfolio-title summary-title">Profit / Loss</div>
+            <div class="portfolio-value summary-value" id="profitLoss">0</div>
+        </div>
+    </div>
+
+    <!-- Add New Investment Form -->
+    <div class="portfolio-form form-container">
+        <input type="text" id="investmentName" placeholder="Investment Name">
+        <input type="number" id="investmentAmount" placeholder="Amount Invested">
+        <input type="number" id="currentPrice" placeholder="Current Value">
+        <button id="addInvestmentBtn">Add Investment</button>
+    </div>
+
+    <!-- Investments Table -->
+    <div class="table-wrapper">
+        <table id="portfolioTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Invested</th>
+                    <th>Current Value</th>
+                    <th>Profit / Loss</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</section>
+
+
+<!---------------------------------------- My Portfolio Page ---------------------------------------->
+
     <!-- Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>

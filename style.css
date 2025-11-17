@@ -5,6 +5,7 @@ body {
     padding: 20px;
     max-width: 100%; /* Use full screen width */
     box-sizing: border-box;
+    overflow-y: auto;   /* Move here */
 }
 
 /* ------------------ Top Ribbon ------------------ */
@@ -96,7 +97,7 @@ h1, h2, h3 {
 
 input, select, button {
     padding: 8px;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 input, select {
@@ -189,6 +190,8 @@ button:not(.edit-btn):not(.remove-btn):hover {
 .table-wrapper {
     flex: 1;
     min-width: 300px;
+    overflow-x: auto;   /* FIX horizontal table overflow */
+
 }
 
 table {
@@ -372,6 +375,7 @@ th {
 @media (max-width: 480px) {
     body {
         padding: 10px;
+         
     }
 
     h1, h2, h3 {
@@ -400,6 +404,8 @@ th {
 /* Optional: make sure no parent element hides overflow */
 .page {
   overflow: visible !important;
+    min-height: 100vh; 
+  
 }
 
 #dateSortBtn {

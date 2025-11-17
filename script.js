@@ -32,10 +32,35 @@ let dateDescending = true; // default: newest first
 
 
 // Change name button
+// Change name button
 document.getElementById('changeNameBtn').addEventListener('click', () => {
     const newName = prompt("Enter your new name:") || "User";
+
+    if (newName === username) return; // same name, do nothing
+
+    // Transfer old entries to new name
+    const oldEntries = JSON.parse(localStorage.getItem(`entries_${username}`)) || [];
+    localStorage.setItem(`entries_${newName}`, JSON.stringify(oldEntries));
+
+    // Transfer categories
+    const oldIncomeCats = JSON.parse(localStorage.getItem(`incomeCats_${username}`)) || [];
+    const oldExpenseCats = JSON.parse(localStorage.getItem(`expenseCats_${username}`)) || [];
+    localStorage.setItem(`incomeCats_${newName}`, JSON.stringify(oldIncomeCats));
+    localStorage.setItem(`expenseCats_${newName}`, JSON.stringify(oldExpenseCats));
+
+    // Remove old username from allUsers array
+    allUsers = allUsers.filter(u => u !== username);
+    addUserToList(newName); // add new name
+    localStorage.setItem("allUsers", JSON.stringify(allUsers));
+
+    // Update current username
+    username = newName;
     setUsername(newName);
+
+    // Load data for new username (transferred)
+    loadUserData(newName);
 });
+
 
 // -------------------- Reset Data Button --------------------
 const resetBtn = document.getElementById('resetBtn');
@@ -241,13 +266,24 @@ function resetAllData() {
     document.getElementById("balance").innerText = '0';
 
     // Reset chart
-    renderChart(); // will redraw chart empty if entries are cleared
+    renderChart(); // redraw chart empty
 
     // Clear entries array and localStorage
     entries = [];
     localStorage.removeItem(`entries_${username}`);
 
+    // Reset categories to default
+    incomeCats = ["Salary","Bonus","Saving","Interest"];
+    expenseCats = ["Rent","Food","Medicine","Insurance","Transport","Clothing","Internet","Fees","Entertainment","Charity"];
+    
+    // Save defaults to localStorage
+    localStorage.setItem(`incomeCats_${username}`, JSON.stringify(incomeCats));
+    localStorage.setItem(`expenseCats_${username}`, JSON.stringify(expenseCats));
+
+    // Refresh dropdown
+    refreshCategoryDropdown();
 }
+
 
 
 // -------------------- Set today's date in date input --------------------
