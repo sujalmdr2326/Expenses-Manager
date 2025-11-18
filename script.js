@@ -487,15 +487,16 @@ topExpenseTbody.innerHTML = "";
 
 topIncomes.forEach(e => {
     const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${e.date}</td><td>${e.category}</td><td>${e.amount}</td>`;
+    tr.innerHTML = `<td>${e.desc}</td><td>${e.category}</td><td>${e.amount}</td>`;
     topIncomeTbody.appendChild(tr);
 });
 
 topExpenses.forEach(e => {
     const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${e.date}</td><td>${e.category}</td><td>${e.amount}</td>`;
+    tr.innerHTML = `<td>${e.desc}</td><td>${e.category}</td><td>${e.amount}</td>`;
     topExpenseTbody.appendChild(tr);
 });
+
 
     // Save latest entries to localStorage
    localStorage.setItem(`entries_${username}`, JSON.stringify(entries));

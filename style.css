@@ -1,19 +1,21 @@
+/* ------------------ Reset & General ------------------ */
 html, body {
-    height: 100%;
+    height: auto;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
-
-/* ------------------ General Layout ------------------ */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
-    max-width: 100%; 
     box-sizing: border-box;
-    overflow-x: hidden;  /* prevent horizontal scroll */
-    overflow-y: auto;    /* allow vertical scroll */
-    -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* ------------------ Top Ribbon ------------------ */
@@ -29,7 +31,7 @@ body {
     border-bottom: 2px solid #388E3C;
 }
 
-#changeNameBtn {
+#changeNameBtn, .user-actions button {
     background-color: white;
     color: #4CAF50;
     border: none;
@@ -37,33 +39,18 @@ body {
     font-size: 14px;
     cursor: pointer;
     border-radius: 4px;
+    font-weight: bold;
+    transition: background 0.2s;
 }
 
-#changeNameBtn:hover {
+#changeNameBtn:hover, .user-actions button:hover {
     background-color: #f1f1f1;
 }
 
 .user-actions {
     display: flex;
-    gap: 8px; /* spacing between buttons */
+    gap: 8px;
 }
-
-.user-actions button {
-    padding: 5px 10px;
-    font-size: 14px;
-    border-radius: 4px;
-    cursor: pointer;
-    border: none;
-    background-color: white;
-    color: #4CAF50;
-    font-weight: bold;
-    transition: background 0.2s;
-}
-
-.user-actions button:hover {
-    background-color: #f1f1f1;
-}
-
 
 /* ------------------ Navigation Ribbon ------------------ */
 .nav-ribbon {
@@ -74,8 +61,8 @@ body {
     border-radius: 5px;
     margin: 20px 0;
     display: flex;
-    justify-content: center; /* center the links */
-    gap: 15px; /* spacing between links */
+    justify-content: center;
+    gap: 15px;
 }
 
 .nav-ribbon a {
@@ -92,8 +79,6 @@ body {
 h1, h2, h3 {
     text-align: center;
 }
-
-/* -------------------------------------- Expenses Tracker ----------------------   */
 
 /* ------------------ Form Layout ------------------ */
 .form-container {
@@ -112,100 +97,25 @@ input, select {
     flex: 1;
 }
 
-/* Make Date column same width in both tables */
-#incomeTable th:nth-child(1),
-#expenseTable th:nth-child(1) {
-    width: 120px;  /* adjust if needed */
-}
-
-/* Ensure both tables headers have same height */
-.table-wrapper table th {
-    line-height: 1.2;       /* uniform line height */
-    height: 40px;            /* fixed height for all headers */
-    vertical-align: middle;  /* center content */
-}
-
-/* Adjust the sort button inside header */
-#dateSortBtn {
-    display: inline-block;           /* inline-block instead of flex */
-    vertical-align: middle;          /* align with text */
-    width: 20px;                     /* smaller width */
-    height: 20px;                    /* smaller height */
-    font-size: 14px;                 /* smaller arrow */
-    padding: 0;                      /* remove extra padding */
-    margin-left: 4px;                /* slight spacing from text */
-}
-
-/* Action buttons container */
-.action-cell {
-    display: flex;      /* side by side */
-    justify-content: center; /* center them horizontally */
-    gap: 5px;           /* spacing between buttons */
-}
-
-/* Edit button */
-button.edit-btn {
-    background-color: #FFC107; /* yellow */
-    color: black;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button.edit-btn:hover {
-    opacity: 0.85;
-}
-
-/* Remove button */
-button.remove-btn {
-    background-color: #F44336; /* red */
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button.remove-btn:hover {
-    opacity: 0.85;
-}
-
-
-
-/* Generic button hover (like Add button) */
-button:not(.edit-btn):not(.remove-btn):hover {
-    background-color: #388E3C;
-}
-
-
-
-/* Generic button hover only if it’s not edit or remove */
-button:not(.edit-btn):not(.remove-btn):hover {
-    background-color: #388E3C;
-}
-
-
-
-/* ------------------ Tables ------------------ */
-.tables-container {
+/* ------------------ Tables General ------------------ */
+.tables-container, .top-entries-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: space-between;
 }
 
-.table-wrapper {
-    flex: 1;
-    min-width: 300px;
-    overflow-x: auto;   /* FIX horizontal table overflow */
-    -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
-
+.table-wrapper, .top-table-wrapper {
+    flex: 1 1 100%;
+    min-width: 0;  /* prevents forced overflow */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: auto;
 }
 
 th, td {
@@ -213,20 +123,21 @@ th, td {
     padding: 8px;
     text-align: center;
     vertical-align: middle;
+    word-break: break-word;
 }
 
 th {
     background-color: #f2f2f2;
 }
 
-/* Action buttons */
-.action-cell button {
-    display: block;
-    width: 100%;
-    margin: 5px 0;
+/* ------------------ Action Buttons ------------------ */
+.action-cell {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
 }
 
-.edit-btn {
+button.edit-btn {
     background-color: #FFC107;
     color: black;
     border: none;
@@ -235,12 +146,8 @@ th {
     cursor: pointer;
 }
 
-.edit-btn:hover {
-    opacity: 0.85;
-}
-
-.remove-btn {
-    background-color: #4CAF50; /* green */
+button.remove-btn {
+    background-color: #F44336;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -248,102 +155,54 @@ th {
     cursor: pointer;
 }
 
-.remove-btn:hover {
+button.edit-btn:hover, button.remove-btn:hover {
     opacity: 0.85;
 }
 
-/* ------------------ Chart ------------------ */
-.chart-container {
-    width: 100%;
-    max-width: 600px;
-    height: 400px;
-    margin: auto;
+button:not(.edit-btn):not(.remove-btn):hover {
+    background-color: #388E3C;
 }
 
-#pieChart {
-    width: 100% !important;
-    height: 100% !important;
-}
-
-/* ------------------ Page Sections ------------------ */
-.page {
-    display: none;
-}
-
-.top-entries-container {
-    display: flex;             /* side by side */
-    gap: 20px;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    flex-wrap: wrap;           /* will wrap on smaller screens */
-}
-
-.top-table-wrapper {
-    flex: 1;                   /* equal width */
-    min-width: 250px;          /* ensures small screens still fit */
-}
-
-#topIncomeTable, #topExpenseTable {
-    width: 100%;               /* full width */
-    border-collapse: collapse;
-    margin-bottom: 20px;       /* spacing below */
-    font-family: Arial, sans-serif;
-}
-
-#topIncomeTable th, #topIncomeTable td,
-#topExpenseTable th, #topExpenseTable td {
-    padding: 8px 12px;         /* padding */
-    border: 1px solid #ccc;    /* border color */
-    text-align: left;
-    font-size: 14px;
-}
-
+/* ------------------ Top Entries Tables ------------------ */
 #topIncomeTable th {
-    background-color: #4CAF50; /* income header green */
+    background-color: #4CAF50;
     color: white;
 }
 
 #topExpenseTable th {
-    background-color: #C62828; /* expense header red */
+    background-color: #C62828;
     color: white;
 }
 
-/* Optional: zebra stripe rows for better readability */
 #topIncomeTable tbody tr:nth-child(even) {
     background-color: #E8F5E9;
 }
+
 #topExpenseTable tbody tr:nth-child(even) {
     background-color: #FFEBEE;
 }
 
-/* Hover effect (optional but nice) */
 #topIncomeTable tbody tr:hover {
     background-color: #C8E6C9;
 }
+
 #topExpenseTable tbody tr:hover {
     background-color: #FFCDD2;
 }
 
-.page {
-    display: none;
-    overflow: visible !important;
-    min-height: 100vh;  /* ensures page fills mobile screen */
-}
-
-
-/* ---------------- Summary Cards (Balanced Size) ---------------- */
+/* ------------------ Summary Cards ------------------ */
 .summary-container {
     display: flex;
     justify-content: center;
-    gap: 15px;       /* slightly larger gap */
+    gap: 15px;
     flex-wrap: wrap;
     margin-bottom: 15px;
 }
 
 .summary-card {
-    flex: 1 1 120px;   /* slightly wider */
+    flex: 1 1 120px;
     min-width: 120px;
-    padding: 10px 12px; /* moderate padding */
+    padding: 10px 12px;
     border-radius: 6px;
     color: white;
     text-align: center;
@@ -351,13 +210,13 @@ th {
 }
 
 .summary-title {
-    font-size: 14px;   /* moderate title size */
+    font-size: 14px;
     margin-bottom: 6px;
     font-weight: bold;
 }
 
 .summary-value {
-    font-size: 18px;   /* moderate number size */
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -365,86 +224,81 @@ th {
 .expense-card { background-color: #F44336; }
 .balance-card { background-color: #2196F3; }
 
+/* ------------------ Chart ------------------ */
+.chart-container {
+    width: 100%;
+    max-width: 600px;
+    height: 400px;
+    margin: auto;
+    position: relative;
+    overflow: visible !important;
+    z-index: 1000;
+}
+
+#pieChart {
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 1001;
+}
+
+/* ------------------ Date Sort Button ------------------ */
+#dateSortBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background-color: #A5D6A7;
+    border: 1px solid #4CAF50;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: background 0.2s, transform 0.2s;
+}
+
+#dateSortBtn:hover {
+    background-color: #81C784;
+    transform: scale(1.1);
+}
 
 /* ------------------ Responsive ------------------ */
 @media (max-width: 768px) {
-    .tables-container {
-        flex-direction: column;
-    }
 
-    .form-container {
+    .tables-container, .top-entries-container, .form-container {
         flex-direction: column;
+        gap: 15px;
     }
 
     input, select, button {
-        flex: 100%;
+        flex: 1 1 100%;
     }
 
     th, td {
         font-size: 12px;
         padding: 6px;
     }
+
+    .action-cell button {
+        padding: 4px 6px;
+        font-size: 12px;
+    }
+
+    .table-wrapper, .top-table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        max-height: none;
+    }
+
+    table {
+        min-width: 0;  /* prevents forcing scroll */
+    }
 }
 
 @media (max-width: 480px) {
-    body {
-        padding: 10px;
-         
-    }
-
-    h1, h2, h3 {
-        font-size: 18px;
-    }
-
-    .nav-ribbon {
-        flex-direction: column;
-        gap: 10px;
-    }
+    body { padding: 10px; }
+    h1, h2, h3 { font-size: 18px; }
+    .nav-ribbon { flex-direction: column; gap: 10px; }
 }
-
-
-/* --- Fix tooltip appearing behind elements --- */
-.chart-container {
-  position: relative;
-  overflow: visible !important;
-  z-index: 1000;
-}
-
-#pieChart {
-  position: relative;
-  z-index: 1001;
-}
-
-/* Optional: make sure no parent element hides overflow */
-.page {
-  overflow: visible !important;
-    min-height: 100vh; 
-  
-}
-
-#dateSortBtn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;                  /* slightly bigger square */
-    height: 28px;
-    background-color: #A5D6A7;    /* light green */
-    border: 1px solid #4CAF50;    /* green border */
-    border-radius: 6px;            /* more rounded */
-    cursor: pointer;
-    font-size: 16px;               /* bigger arrow */
-    font-weight: bold;
-    padding: 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);  /* subtle shadow */
-    transition: background 0.2s, transform 0.2s; /* smooth hover effect */
-}
-
-#dateSortBtn:hover {
-    background-color: #81C784;  /* slightly darker green on hover */
-    transform: scale(1.1);      /* small pop effect */
-}
-
-
-/* -------------------------------------- Expenses Tracker ----------------------   */
-
-/* -------------------------------------- My Portfolio ----------------------   */
