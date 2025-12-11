@@ -163,6 +163,60 @@ button:not(.edit-btn):not(.remove-btn):hover {
     background-color: #388E3C;
 }
 
+.top-entries-header {
+    display: flex;
+    justify-content: space-between; /* heading left, dropdown right */
+    align-items: center;
+    margin: 25px 0 15px 0; /* move the row down from above table */
+    padding: 5px 15px;
+    border-radius: 8px;
+}
+
+.top-entries-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+    text-align: center; /* center the text in its flex space */
+    flex: 1; /* take remaining space */
+}
+
+.top-entries-header select {
+    padding: 4px 10px;       /* enough padding for text */
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    width: auto;             /* fit content */
+    min-width: 80px;         /* minimum width if text is short */
+    max-width: 150px;        /* optional, to avoid huge dropdowns */
+    margin-left: 10px;       /* space from heading */
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    transition: all 0.2s;
+}
+
+
+.top-entries-header select:hover {
+    border-color: #4CAF50;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 768px) {
+    .top-entries-header {
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .top-entries-header select {
+        width: 50%;
+        min-width: 120px;
+        margin-left: 0;
+    }
+}
+
+
 /* ------------------ Top Entries Tables ------------------ */
 #topIncomeTable th {
     background-color: #4CAF50;
@@ -264,6 +318,200 @@ button:not(.edit-btn):not(.remove-btn):hover {
     transform: scale(1.1);
 }
 
+/* ===================== MY PORTFOLIO SECTION ===================== */
+
+.portfolio-container {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* ---- Intro Card ---- */
+.portfolio-intro {
+    text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+    margin-bottom: 25px;
+}
+
+.portfolio-intro h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.portfolio-intro p {
+    margin-top: 10px;
+    color: #555;
+    font-size: 16px;
+}
+
+/* ---- Portfolio Grid ---- */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+/* ---- Portfolio Cards ---- */
+.port-card {
+    background: white;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.port-card h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.port-card p {
+    font-size: 14px;
+    color: #666;
+}
+
+.port-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+
+
+
+/* ===============================
+   MY PORTFOLIO DASHBOARD STYLES (COLORFUL)
+   =============================== */
+
+/* Title */
+.section-title {
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #2E3A59;
+}
+
+/* Cards Layout */
+.portfolio-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+/* Individual Cards with colors */
+.p-card {
+    padding: 18px;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    color: white;
+}
+
+.p-card:nth-child(1) { background: #4CAF50; }   /* Total Value - Green */
+.p-card:nth-child(2) { background: #2196F3; }   /* Total Invested - Blue */
+.p-card:nth-child(3) { background: #FF9800; }   /* Profit/Loss - Orange */
+.p-card:nth-child(4) { background: #9C27B0; }   /* ROI - Purple */
+
+.p-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+}
+
+.p-card h3 {
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.p-card p {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 6px 0;
+}
+
+.placeholder {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+}
+
+/* Portfolio Section Blocks */
+.portfolio-section {
+    margin: 25px 0;
+    background: linear-gradient(120deg, #FCE4EC, #E8F5E9);
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+}
+
+.section-header {
+    font-size: 20px;
+    margin: 0;
+    cursor: pointer;
+    padding: 10px 0;
+    font-weight: bold;
+    color: #2E3A59;
+    transition: color 0.2s;
+}
+
+.section-header:hover {
+    color: #FF5722;
+}
+
+/* Collapsible containers */
+.table-container {
+    padding: 10px 0 15px 0;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Add buttons */
+.add-btn {
+    padding: 8px 14px;
+    background: #FF5722;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 8px;
+    transition: background 0.2s;
+}
+
+.add-btn:hover {
+    background: #E64A19;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .p-card {
+        padding: 15px;
+    }
+
+    .section-header {
+        font-size: 18px;
+    }
+}
+
+
+
+
+
+/* ---- Mobile adjustments ---- */
+@media (max-width: 480px) {
+    .portfolio-intro h2 { font-size: 20px; }
+    .port-card h3 { font-size: 18px; }
+}
+
+
+
 /* ------------------ Responsive ------------------ */
 @media (max-width: 768px) {
 
@@ -301,4 +549,374 @@ button:not(.edit-btn):not(.remove-btn):hover {
     body { padding: 10px; }
     h1, h2, h3 { font-size: 18px; }
     .nav-ribbon { flex-direction: column; gap: 10px; }
+}
+
+
+/* ------------------ Commodities Table & Add Button ------------------ */
+
+/* Ensure the add button aligns to the right */
+#commoditiesTable > div {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+/* Commodities Table */
+#commoditiesDataTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#commoditiesDataTable th, 
+#commoditiesDataTable td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+    vertical-align: middle;
+    word-break: break-word;
+}
+
+#commoditiesDataTable th {
+    background-color: #FFD54F; /* light orange header */
+    color: #333;
+}
+
+#commoditiesDataTable tbody tr:nth-child(even) {
+    background-color: #FFF8E1; /* light yellow for even rows */
+}
+
+#commoditiesDataTable tbody tr:hover {
+    background-color: #FFE082; /* slightly darker on hover */
+}
+
+/* Add button */
+#addCommodityBtn {
+    background-color: #FF5722;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+#addCommodityBtn:hover {
+    background-color: #E64A19;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    #commoditiesTable > div {
+        justify-content: center;
+    }
+
+    #commoditiesDataTable th, 
+    #commoditiesDataTable td {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    #addCommodityBtn {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+}
+
+#commoditiesDataTable tr:last-child {
+    background-color: #ffe082;
+    font-weight: bold;
+}
+
+/* Responsive table wrapper */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;   /* allows horizontal scroll on small screens */
+    -webkit-overflow-scrolling: touch; /* smooth scroll on mobile */
+}
+
+/* Make table cells shrink nicely */
+#commoditiesDataTable {
+    min-width: 600px;   /* ensures table doesn’t collapse too much */
+    border-collapse: collapse;
+}
+
+/* Adjust font size and padding on small screens */
+@media (max-width: 768px) {
+    #commoditiesDataTable th,
+    #commoditiesDataTable td {
+        font-size: 12px;
+        padding: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    #commoditiesDataTable th,
+    #commoditiesDataTable td {
+        font-size: 11px;
+        padding: 4px;
+    }
+}
+
+/* Fix Profit/Loss and ROI column widths */
+#commoditiesDataTable th:nth-child(5),
+#commoditiesDataTable td:nth-child(5),
+#commoditiesDataTable th:nth-child(6),
+#commoditiesDataTable td:nth-child(6) {
+    width: 15%;          /* give them enough space */
+    white-space: nowrap; /* prevent text breaking vertically */
+    text-align: center;  /* keep values centered */
+}
+/* Force horizontal scroll for Commodities table */
+/* Wrapper that allows horizontal scroll */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;              /* enable horizontal scroll */
+  -webkit-overflow-scrolling: touch; /* smooth scroll on laptop + mobile */
+}
+
+/* Force table wider than screen */
+#commoditiesDataTable {
+  min-width: 900px;   /* adjust number until scroll bar appears */
+  border-collapse: collapse;
+}
+
+/* Commodities seciton ending */
+
+
+/* Fixed Income Table */
+#fixedIncomeDataTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px; /* force scroll on small screens */
+}
+
+#fixedIncomeDataTable th,
+#fixedIncomeDataTable td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#fixedIncomeDataTable th {
+  background-color: #C5E1A5; /* light green header */
+  color: #333;
+}
+
+#fixedIncomeDataTable tbody tr:nth-child(even) {
+  background-color: #F1F8E9;
+}
+
+#fixedIncomeDataTable tbody tr:hover {
+  background-color: #DCEDC8;
+}
+
+#fixedIncomeDataTable tr:last-child {
+  background-color: #AED581;
+  font-weight: bold;
+}
+
+/* Allow horizontal scroll for all portfolio tables */
+.table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Commodities table */
+#commoditiesDataTable {
+  min-width: 900px; /* force scroll on smaller screens */
+}
+
+/* Commodities table scroll fix */
+#commoditiesTable {
+  overflow-x: auto;              /* enable horizontal scroll */
+  -webkit-overflow-scrolling: touch;
+}
+
+#commoditiesDataTable {
+  min-width: 900px;              /* force table wider than screen */
+}
+
+
+
+/* Apply to all responsive table wrappers */
+.table-responsive {
+  width: 100%;
+  overflow-x: visible;   /* enables horizontal scroll */
+}
+
+/* Force Commodities table to keep its width */
+#commoditiesDataTable {
+  min-width: 800px;   /* adjust to match your other tables */
+}
+
+
+/* Fixed Income table */
+#fixedIncomeDataTable {
+  min-width: 900px; /* match Commodities scroll behavior */
+}
+
+/* === FIX: Fixed Income ROI breaking on mobile === */
+#fixedIncomeDataTable th:nth-child(5),
+#fixedIncomeDataTable td:nth-child(5) {
+  white-space: nowrap !important;
+  word-break: normal !important;
+  min-width: 70px;
+  text-align: center;
+}
+
+
+/* End of fixed income */
+
+
+/* =========================================================================
+ /* =========================================================================
+   MARKET INVESTMENTS TABLE (Final, Consolidated, and Corrected)
+   ========================================================================= */
+
+/* 1. Table Structure */
+#marketInvestmentsDataTable {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; 
+    min-width: 900px; 
+}
+
+/* 2. Header and Cell Styles (General) */
+#marketInvestmentsDataTable th,
+#marketInvestmentsDataTable td {
+    border: 1px solid #ccc;
+    padding: 6px 4px; 
+    text-align: center;
+    white-space: nowrap; 
+    vertical-align: middle; /* Ensures content is vertically centered in the cell */
+    font-weight: normal;
+}
+
+/* 3. Header Custom Color */
+#marketInvestmentsDataTable th {
+    background-color: #A3E4D7; 
+    color: #333;
+    font-weight: bold;
+}
+
+/* 4. Row Striping and Hover */
+#marketInvestmentsDataTable tbody tr:nth-child(even) {
+    background-color: #E8F8F5;
+}
+
+#marketInvestmentsDataTable tbody tr:hover {
+    background-color: #D1F2EB;
+}
+
+/* 5. Column Widths */
+#marketInvestmentsDataTable th:nth-child(1), #marketInvestmentsDataTable td:nth-child(1) { width: 12%; } 
+#marketInvestmentsDataTable th:nth-child(2), #marketInvestmentsDataTable td:nth-child(2) { width: 20%; } 
+#marketInvestmentsDataTable th:nth-child(3), #marketInvestmentsDataTable td:nth-child(3) { width: 6%; } 
+#marketInvestmentsDataTable th:nth-child(4), #marketInvestmentsDataTable td:nth-child(4) { width: 12%; } 
+#marketInvestmentsDataTable th:nth-child(5), #marketInvestmentsDataTable td:nth-child(5) { width: 12%; } 
+#marketInvestmentsDataTable th:nth-child(6), #marketInvestmentsDataTable td:nth-child(6) { width: 14%; } 
+#marketInvestmentsDataTable th:nth-child(7), #marketInvestmentsDataTable td:nth-child(7) { width: 12%; } 
+#marketInvestmentsDataTable th:nth-child(8), #marketInvestmentsDataTable td:nth-child(8) { width: 10%; } 
+#marketInvestmentsDataTable th:nth-child(9), #marketInvestmentsDataTable td:nth-child(9) { width: 8%; } 
+
+/* 6. ACTION CELL FIX: ENFORCES PERFECT CENTER */
+#marketInvestmentsDataTable td.action-cell {
+    /* CRITICAL FIXES */
+    border-style: hidden !important; /* Hides the outer box (cell border) */
+    display: flex;             /* 1. Use Flexbox for powerful centering */
+    align-items: center !important;       /* 2. Centers content VERTICALLY */
+    justify-content: center !important;   /* 3. Centers content HORIZONTALLY */
+    
+    /* Ensure sizing is maintained */
+    padding: 6px 4px;
+    min-width: 60px;
+    
+    /* Clean up conflicting properties */
+    text-align: initial; 
+    vertical-align: initial;
+}
+
+/* 7. REMOVE BUTTON STYLING (The single, centered box) */
+#marketInvestmentsDataTable .remove-mi {
+    /* Styles for the single visible box */
+    background-color: hsl(0, 5%, 85%); 
+    color: #000000; 
+    border: 1px solid #ccc; /* This is the ONLY border now */
+    
+    /* Layout and Sizing */
+    padding: 3px 6px; 
+    border-radius: 4px;
+    font-size: 15px; 
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    
+    /* IMPORTANT: Must remove margin/line-height for clean Flexbox centering */
+    margin: 0;
+    line-height: normal; 
+    transition: opacity 0.15s;
+}
+
+/* 8. HOVER FEATURE */
+#marketInvestmentsDataTable .remove-mi:hover {
+    opacity: 0.9;
+}
+/* 9. Totals Row Style */
+#marketInvestmentsDataTable .totals-row {
+    background-color: #b2dfc7; 
+    font-weight: bold;
+}
+
+#roiRankingTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+#roiRankingTable th, #roiRankingTable td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+#roiRankingTable th {
+  background-color: #90CAF9; /* light blue header */
+  color: #333;
+}
+
+#roiRankingTable tbody tr:nth-child(even) {
+  background-color: #E3F2FD;
+}
+
+#roiRankingTable tbody tr:hover {
+  background-color: #BBDEFB;
+}
+
+/* ==== FORCE horizontal scroll specifically for Commodities ==== */
+#commoditiesTable {
+  overflow-x: auto !important;              /* parent controls the scroll */
+  -webkit-overflow-scrolling: touch !important;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* make the inner wrapper behave as a block scroller (no nested-scroll conflicts) */
+#commoditiesTable .table-responsive {
+  display: block !important;
+  width: 100% !important;
+  overflow-x: visible !important;           /* visible so parent handles scrolling */
+  -webkit-overflow-scrolling: touch !important;
+}
+
+/* ensure the table is wider than the container so a scrollbar appears */
+#commoditiesDataTable {
+  min-width: 1100px !important;             /* increase if you need more width */
+  table-layout: auto !important;
+}
+
+/* make sure the totals/last row doesn't collapse width */
+#commoditiesDataTable .totals-row td {
+  white-space: nowrap;
 }

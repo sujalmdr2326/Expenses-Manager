@@ -20,7 +20,7 @@
 
   <!-- Navigation Ribbon -->
   <div class="nav-ribbon">
-    <a href="#" id="homeLink">Home</a> |
+<a href="#" id="homeLink">Home</a> |
 <a href="#" id="expensesLink">Expenses Tracker</a> |
 <a href="#" id="portfolioLink">My Portfolio</a> |
 <a href="#" id="contactLink">Contact Us</a>
@@ -119,8 +119,15 @@
         </div>
     </div>
 
-<!-- Top Entries Section -->
-<h2>Top Entries</h2>
+<div class="top-entries-header">
+    <h2>Top Entries</h2>
+    <select id="topViewSelect">
+        <option value="entries">Entries</option>
+        <option value="category">Category</option>
+    </select>
+</div>
+
+    
 <div class="top-entries-container">
     <div class="top-table-wrapper">
         <h3>Top 3 Income</h3>
@@ -174,6 +181,7 @@
 <div class="chart-container">
     <canvas id="pieChart"></canvas>
 </div>
+</div>
 
 <!---------------------------------------- Expenses Tracker Page ---------------------------------------->
 
@@ -181,47 +189,153 @@
 <!---------------------------------------- My Portfolio Page ---------------------------------------->
 
 <section id="portfolioSection" class="page">
-    <h2>My Portfolio</h2>
+<h2 class="section-title">My Portfolio Dashboard</h2>
 
-    <!-- Portfolio Summary Cards -->
-    <div class="portfolio-summary summary-container">
-        <div class="portfolio-card summary-card income-card">
-            <div class="portfolio-title summary-title">Total Invested</div>
-            <div class="portfolio-value summary-value" id="totalInvested">0</div>
-        </div>
-        <div class="portfolio-card summary-card balance-card">
-            <div class="portfolio-title summary-title">Current Value</div>
-            <div class="portfolio-value summary-value" id="currentValue">0</div>
-        </div>
-        <div class="portfolio-card summary-card expense-card">
-            <div class="portfolio-title summary-title">Profit / Loss</div>
-            <div class="portfolio-value summary-value" id="profitLoss">0</div>
-        </div>
+<!-- ===== Dashboard Cards ===== -->
+<div class="portfolio-cards">
+
+    <div class="p-card">
+        <h3>Total Portfolio Value</h3>
+        <p id="totalValue">NPR 0</p>
     </div>
 
-    <!-- Add New Investment Form -->
-    <div class="portfolio-form form-container">
-        <input type="text" id="investmentName" placeholder="Investment Name">
-        <input type="number" id="investmentAmount" placeholder="Amount Invested">
-        <input type="number" id="currentPrice" placeholder="Current Value">
-        <button id="addInvestmentBtn">Add Investment</button>
+    <div class="p-card">
+        <h3>Total Invested</h3>
+        <p id="totalInvestedCard">NPR 0</p>
     </div>
 
-    <!-- Investments Table -->
-    <div class="table-wrapper">
-        <table id="portfolioTable">
+    <div class="p-card">
+        <h3>Total Profit / Loss</h3>
+        <p id="totalPL">NPR 0</p>
+    </div>
+
+    <div class="p-card">
+        <h3>Overall ROI (%)</h3>
+        <p id="overallROI">0%</p>
+
+    </div>
+</div>
+
+
+<!-- ===== Categories Section ===== -->
+
+<!-- Commodities -->
+<div class="portfolio-section">
+    <h3 class="section-header" onclick="toggleSection('commoditiesTable')">Commodities ▼</h3>
+
+    <div id="commoditiesTable" class="table-container hidden">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <span></span> <!-- Empty span to push button to right -->
+            <button class="add-btn" id="addCommodityBtn">Add Commodity</button>
+        </div>
+
+        
+<div class="table-responsive">
+      <table id="commoditiesDataTable">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Invested</th>
-                    <th>Current Value</th>
-                    <th>Profit / Loss</th>
-                    <th>Actions</th>
+                    <th>Category</th>
+                    <th>Qty</th>
+                    <th>Purchase Price</th>
+                    <th>Current Price</th>
+                    <th>Profit/Loss</th>
+                    <th>ROI</th>
+                    <th>Action</th>
                 </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+                <!-- Rows will be added dynamically -->
+            </tbody>
         </table>
     </div>
+</div>
+
+
+
+
+</div>
+      
+
+<!-- Fixed Income -->
+<div class="portfolio-section">
+  <h3 class="section-header" onclick="toggleSection('fixedIncomeTable')">Fixed Income ▼</h3>
+
+  <div id="fixedIncomeTable" class="table-container hidden">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <span></span>
+      <button class="add-btn" id="addFixedIncomeBtn">Add Fixed Income</button>
+    </div>
+
+    <table id="fixedIncomeDataTable">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Remarks</th>
+          <th>Total Investment</th>
+          <th>Interest Received</th>
+          <th>ROI</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- Market Investments -->
+<div class="portfolio-section">
+  <h3 class="section-header" onclick="toggleSection('marketInvestmentsTable')">Market Investments ▼</h3>
+
+  <div id="marketInvestmentsTable" class="table-container hidden">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <span></span>
+      <button class="add-btn" id="addMarketInvestmentBtn">Add Investment</button>
+    </div>
+
+   <table id="marketInvestmentsDataTable">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Name</th>
+      <th>Qty</th>
+      <th>Purchase Price</th>
+      <th>Current Price</th>
+      <th>Current Total Value</th>
+      <th>Profit / Loss</th>
+      <th>ROI</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+  </div>
+</div>
+
+
+<!-- ===== ROI Ranking Table ===== -->
+<div class="portfolio-section">
+  <h3 class="section-header" onclick="toggleSection('roiTable')">ROI Ranking ▼</h3>
+  <div id="roiTable" class="table-container hidden">
+    <table id="roiRankingTable">
+      <thead>
+        <tr>
+          <th>S.N</th>
+          <th>Category</th>
+          <th>Total Invested</th>
+          <th>Current Total Value</th>
+          <th>Profit/Loss</th>
+          <th>ROI</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
 </section>
 
 
